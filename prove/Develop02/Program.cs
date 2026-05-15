@@ -1,3 +1,14 @@
+/*
+Author: Joshua Walker
+Description: Program to create a journal, add entries to it based on randomized prompts, save the journal as a file, and load a journal from a file
+Date: 5/15/26
+Sources:
+    1. Class documentation -- CSE 210 Spr 2026, https://byui-cse.github.io/cse210-course-2023/unit02/develop.html
+    2. Instructor documentation -- W. Clements 2026, Class Notes
+    3. Site about how to count items in a list -- https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.count?view=netframework-4.8.1
+    4. Site about IndexOutOfRange exception -- https://www.tutorialsteacher.com/articles/indexoutofrange-exception-in-csharp
+
+*/
 using System;
 
 class Program
@@ -5,66 +16,35 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Welcome to the Jolly Ole Journal!");
-        List<string> prompts = new List<string>();
-        prompts.Add("Who was the most interesting person I interacted with today?");
-        prompts.Add("What was the best part of my day?");
-        prompts.Add("How did I see the hand of the Lord in my life today?");
-        prompts.Add("What was the strongest emotion I felt today?");
-        prompts.Add("If I had one thing I could do over today, what would it be?");
-        prompts.Add("What moment today made me stop and think for a second?");
-        prompts.Add("When did I feel the most motivated or energized today?");
-        prompts.Add("What challenge did I handle better than I would have a year ago?");
-        prompts.Add("What small detail from today do I want to remember a month from now?");
-        prompts.Add("Did I act like the kind of person I want to become today?");
 
-
-        string _userChoiceJW = "-1";
+        string userChoiceJW = "-1";
         Journal journal = new Journal();
-        while (_userChoiceJW != "5")
+        while (userChoiceJW != "6")
         {
-            Console.WriteLine("Please select one of the following choices:\n1. Write\n2. Display\n3. Load\n4. Save\n5. Quit");
+            Console.WriteLine("Please select one of the following choices:\n1. Write Entry\n2. Display Journal\n3. Load Journal\n4. Save Journal\n5. See Journal Stats\n6. Quit");
             Console.Write("What would you like to do? ");
-            _userChoiceJW = Console.ReadLine();
-            if (_userChoiceJW == "1")
+            userChoiceJW = Console.ReadLine();
+            if (userChoiceJW == "1")
             {
-                // new instance
-                Entry entry = new Entry();
-                // get mood
-                Console.WriteLine("What is your mood right now?");
-                string moodResponse = Console.ReadLine();
-                entry._entryMoodJW = moodResponse;
-                // function to get random prompt
-                string randPrompt = GetRandomPrompt(prompts);
-
-                entry._entryPromtJW = randPrompt;
-                Console.WriteLine(randPrompt);
-                string response = Console.ReadLine();
-                entry._entryResponseJW = response;
-                // get datetime
-                DateTime theCurrentTime = DateTime.Now;
-                entry._entryDateJW = theCurrentTime.ToShortDateString();
-                journal._journalEntriesJW.Add(entry);
+                journal.CreateEntry(journal);
             }
-            else if (_userChoiceJW == "2")
+            else if (userChoiceJW == "2")
             {
                 journal.Display();
             }
-            else if (_userChoiceJW == "3")
+            else if (userChoiceJW == "3")
             {
-                Console.Write("What is the file name? ");
-                string fileName = Console.ReadLine();
-                LoadFile(fileName, journal);
-                Console.WriteLine($"{fileName} correctly loaded!");
-
+                LoadFile(journal);
             }
-            else if (_userChoiceJW == "4")
+            else if (userChoiceJW == "4")
             {
-                Console.Write("What file would you like to save this journal in? ");
-                string fileName = Console.ReadLine();
-                SaveFile(fileName, journal);
-                Console.WriteLine($"Journal correctly saved in {fileName}");
+                SaveFile(journal);
             }
-            else if (_userChoiceJW == "5")
+            else if (userChoiceJW == "5")
+            {
+                journal.DisplayNumEntries(journal);
+            }
+            else if (userChoiceJW == "6")
             {
                 Console.WriteLine("Goodbye!");
             }
@@ -73,40 +53,27 @@ class Program
                 Console.WriteLine("Invalid selection");
             }
         }
-        
-        static string GetRandomPrompt(List<string> prompts)
-        {
-            Random randGenerator = new Random();
-            int randIndex = randGenerator.Next(prompts.Count);
-            string randPrompt = prompts[randIndex];
-            return randPrompt;
-        }
 
-        static void LoadFile(string fileName, Journal journal)
+        static void LoadFile(Journal journal)
         {
-
+            journal._journalEntriesJW = [];
+            Console.Write("What is the file name? ");
+            string fileName = Console.ReadLine();
             string[] lines = System.IO.File.ReadAllLines(fileName);
-            foreach (string line in lines)
-            {
-                Entry entry = new Entry();
-                string[] parts = line.Split(",");
-                entry._entryDateJW = parts[0];
-                entry._entryMoodJW = parts[1];
-                entry._entryPromtJW = parts[2];
-                entry._entryResponseJW = parts[3];
-                
-                journal._journalEntriesJW.Add(entry);
-            }
+            journal.FromString(lines, journal);
+            Console.WriteLine($"{fileName} correctly loaded!");
         }
 
-        static void SaveFile(string fileName, Journal journal)
+        static void SaveFile(Journal journal)
         {
+            Console.Write("What file would you like to save this journal in? ");
+            string fileName = Console.ReadLine();
+
             using (StreamWriter outputFile = new StreamWriter(fileName))
                 {
-                    foreach (Entry entry in journal._journalEntriesJW)
-                    {
-                        outputFile.WriteLine($"{entry._entryDateJW},{entry._entryMoodJW},{entry._entryPromtJW},{entry._entryResponseJW}");
-                    }
+                    string fileStringJW = journal.StringJournal(journal);
+                    outputFile.Write(fileStringJW);
+                    Console.WriteLine($"Journal correctly saved in {fileName}");
                 }
         }
     }
