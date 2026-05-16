@@ -1,73 +1,85 @@
 using System;
-
-public class Journal
+/// <summary>
+/// Journal class hold journal entries in a list that can be manipulated using methods
+/// </summary>
+public class JWJournal
 {
-    public List<Entry> _journalEntriesJW = new List<Entry>();
+    public List<JWEntry> _jwJournalEntries = new List<JWEntry>();
 
-    public void Display()
+    public void DisplayJournal()
+    // Display the entries in the journal
     {
-        foreach (Entry entry in _journalEntriesJW)
+        foreach (JWEntry jwEntry in _jwJournalEntries)
         {
-            entry.Display();
+            jwEntry.Display();
         }
     }
-    public void CreateEntry(Journal journal)
+
+    public void CreateEntry(JWJournal jwJournal)
+    // Create a new entry class, prompt the user for entry responses, and add to journal collection
     {
             // new instance
-            Entry entry = new Entry();
+            JWEntry jwEntry = new JWEntry();
 
             // get mood
             Console.WriteLine("What is your mood right now?");
-            string moodResponse = Console.ReadLine();
-            entry._entryMoodJW = moodResponse;
+            string jwMoodResponse = Console.ReadLine();
+            jwEntry._jwEntryMoodJW = jwMoodResponse;
 
             // method to get random prompt
-            string randPrompt = entry.GetRandomPrompt();
-            entry._entryPromtJW = randPrompt;
+            string jwRandPrompt = jwEntry.GetRandomPrompt();
+            jwEntry._jwEntryPromtJW = jwRandPrompt;
 
             // write prompt
-            Console.WriteLine(randPrompt);
+            Console.WriteLine(jwRandPrompt);
 
             // capture response
-            string response = Console.ReadLine();
-            entry._entryResponseJW = response;
+            string jwResponse = Console.ReadLine();
+            jwEntry._jwEntryResponseJW = jwResponse;
 
             // get datetime
-            DateTime theCurrentTime = DateTime.Now;
-            entry._entryDateJW = theCurrentTime.ToShortDateString();
+            DateTime jwTheCurrentTime = DateTime.Now;
+            jwEntry._jwEntryDateJW = jwTheCurrentTime.ToShortDateString();
 
             //add journal entry to journal list
-            journal._journalEntriesJW.Add(entry);
+            jwJournal._jwJournalEntries.Add(jwEntry);
     }
-    public void FromString(string[] journallines, Journal journal)
+
+    public void LoadFileString(string[] jwJournalLines, JWJournal jwJournal)
+    // Loop lines of text from the desired file through the JWEntry.LoadFileEntry method to add them to a journal
     {
-        foreach (string line in journallines)
+        foreach (string jwLine in jwJournalLines)
             {
-                Entry entry = new Entry();
-                entry.LoadFileEntry(line, entry);
+                JWEntry jwEntry = new JWEntry();
+                jwEntry.AssignFileStringAttributes(jwLine, jwEntry);
                 
-                journal._journalEntriesJW.Add(entry);
+                jwJournal._jwJournalEntries.Add(jwEntry);
             }
     }
-    public string StringJournal(Journal journal)
+
+    public string GatherAllJournalEntries(JWJournal jwJournal)
+    // Compile a string of formatted code using the JWEntry.StringEntry method that can be returned and saved into a file.
     {
-        string journalString = "";
-        foreach (Entry entry in journal._journalEntriesJW)
+        string jwJournalString = "";
+        foreach (JWEntry jwEntry in jwJournal._jwJournalEntries)
         {
-            journalString += entry.StringEntry(entry);
+            jwJournalString += jwEntry.FormatFileString(jwEntry);
         }
-        return journalString;
+        return jwJournalString;
     }
-    public void DisplayNumEntries(Journal journal)
+    
+    public void DisplayNumEntries(JWJournal jwJournal)
+    // Creativity -- Count/display the number of journal entries in a journal
     {
-        int numJW = journal._journalEntriesJW.Count;
-        if (numJW == 1)
+        int jwNum = jwJournal._jwJournalEntries.Count;
+
+        if (jwNum == 1)
         {
-            Console.WriteLine($"Your journal consists of 1 entry. Keep it up!\n");
+            Console.WriteLine($"Your journal consists of 1 entry. Keep it up!");
         }
         else
         {
-            Console.WriteLine($"Your journal consists of {numJW} entries!\n");
+            Console.WriteLine($"Your journal consists of {jwNum} entries!");
         }
     }
 }
