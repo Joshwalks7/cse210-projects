@@ -31,6 +31,6 @@ public class JWReference
     public string GetReference()
     {
         // compiles variables and return them as a string
-        return $"{_jwBook} {_jwChapter} {_jwVerse}:";
+        return $"{_jwBook} {_jwChapter}: {_jwVerse}:";
     }
 }
