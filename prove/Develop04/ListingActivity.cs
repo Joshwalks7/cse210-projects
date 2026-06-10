@@ -3,8 +3,6 @@ using System;
 public class JWListingActivity : JWActivity
 {
     private List<string> _jwPrompts;
-    private long _jwStartTime;
-    private long _jwFutureTime;
     private int _jwItemCount;
 
     public JWListingActivity(string jwName, string jwDescription) : base(jwName, jwDescription)
@@ -25,7 +23,7 @@ public class JWListingActivity : JWActivity
         DateTime jwCurrentTime = DateTime.Now;
         while (jwCurrentTime < jwFutureTime)
         {
-            Console.Write("\n> ");
+            Console.Write("> ");
             Console.ReadLine();
             _jwItemCount++;
             jwCurrentTime = DateTime.Now;

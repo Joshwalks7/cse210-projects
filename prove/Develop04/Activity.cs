@@ -60,6 +60,6 @@ public class JWActivity
             Thread.Sleep(1000);
             Console.Write("\b");
         }
-        Console.Write("\b");
+        Console.WriteLine("");
     }
 }
