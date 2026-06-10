@@ -26,7 +26,7 @@ class Program
             JWBreathingActivity.JWSetDuration(Console.ReadLine());
             JWBreathingActivity.JWGetReady();
             JWBreathingActivity.JWDisplayMiddle();
-            JWListingActivity.JWFinishProgram();
+            JWBreathingActivity.JWFinishProgram();
         }
 
     }

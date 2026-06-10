@@ -10,6 +10,7 @@ public class JWBreathingActivity : JWActivity
         _jwInTime = 3;
         _jwOutTime = 4;
         _jwCompleteRotations = _jwDuration / (_jwInTime + _jwOutTime);
+        Console.WriteLine(_jwCompleteRotations);
     }
     public void JWDisplayMiddle()
     {
@@ -20,14 +21,14 @@ public class JWBreathingActivity : JWActivity
             int jwUniqueOutTime = jwModNum - jwUniqueInTime;
             Console.Write("Breathe in...");
             JWCountDown(jwUniqueInTime);
-            Console.Write("\nBreathe out...");
+            Console.Write("Breathe out...");
             JWCountDown(jwUniqueOutTime);
         }
         for (int i = _jwCompleteRotations; i > 0; i--)
         {
             Console.Write("Breathe in...");
             JWCountDown(_jwInTime);
-            Console.Write("\nBreathe out...");
+            Console.Write("Breathe out...");
             JWCountDown(_jwOutTime);
         }
     }
