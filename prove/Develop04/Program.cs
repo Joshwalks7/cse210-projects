@@ -11,8 +11,12 @@ class Program
 
         if (jwUserChoice == "3")
         {
+            Console.Clear();
             Console.Write(JWListingActivity.JWBegin());
             JWListingActivity.JWSetDuration(Console.ReadLine());
+            JWListingActivity.JWGetReady();
+            JWListingActivity.JWDisplayMiddle();
+            JWListingActivity.JWFinishProgram();
         }
 
     }
