@@ -9,16 +9,19 @@ public class JWBreathingActivity : JWActivity
     {
         _jwInTime = 3;
         _jwOutTime = 4;
-        _jwCompleteRotations = _jwDuration / (_jwInTime + _jwOutTime);
-        Console.WriteLine(_jwCompleteRotations);
     }
     public void JWDisplayMiddle()
     {
+        _jwCompleteRotations = _jwDuration / (_jwInTime + _jwOutTime);
         if (_jwDuration % (_jwInTime + _jwOutTime) != 0)
         {
+            Console.WriteLine(_jwCompleteRotations);
             int jwModNum = _jwDuration % (_jwInTime + _jwOutTime);
+            Console.WriteLine(jwModNum);
             int jwUniqueInTime = jwModNum / 2;
+            Console.WriteLine(jwUniqueInTime);
             int jwUniqueOutTime = jwModNum - jwUniqueInTime;
+            Console.WriteLine(jwUniqueOutTime);
             Console.Write("Breathe in...");
             JWCountDown(jwUniqueInTime);
             Console.Write("Breathe out...");
@@ -26,7 +29,7 @@ public class JWBreathingActivity : JWActivity
         }
         for (int i = _jwCompleteRotations; i > 0; i--)
         {
-            Console.Write("Breathe in...");
+            Console.Write("\nBreathe in...");
             JWCountDown(_jwInTime);
             Console.Write("Breathe out...");
             JWCountDown(_jwOutTime);

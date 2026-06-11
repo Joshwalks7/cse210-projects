@@ -4,7 +4,6 @@ public class JWActivity
 {
     private string _jwName;
     private string _jwDescription;
-    protected int _jwRemainingTime;
     protected int _jwDuration;
 
     public JWActivity(string jwName, string jwDescription)
@@ -33,10 +32,12 @@ public class JWActivity
         Console.WriteLine("Well done!!");
         JWDisplayAnimation();
         Console.WriteLine($"\nYou have completed another {_jwDuration} seconds of the {_jwName} Activity.");
+        JWDisplayAnimation();
+        Console.Clear();
     }
-    public void JWDisplayAnimation()
+    public void JWDisplayAnimation(int rotations = 4)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < rotations; i++)
         {
             Console.Write("\\");
             Thread.Sleep(250);
@@ -58,7 +59,7 @@ public class JWActivity
         {
             Console.Write(i);
             Thread.Sleep(1000);
-            Console.Write("\b");
+            Console.Write("\b \b");
         }
         Console.WriteLine("");
     }
