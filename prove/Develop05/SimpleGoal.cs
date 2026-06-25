@@ -4,7 +4,7 @@ public class JWSimpleGoal : JWGoal
 {
     private bool _jwIsComplete = false;
 
-    public JWSimpleGoal(string jwName, string jwDescription, int jwPointValue) : base(jwName, jwDescription, jwPointValue)
+    public JWSimpleGoal(string jwName = "Unknown", string jwDescription = "Unknown", int jwPointValue = 0) : base(jwName, jwDescription, jwPointValue)
     {
     }
     public override int RecordEvent()

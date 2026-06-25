@@ -1,13 +1,16 @@
+//range operator: https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/ranges-indexes
 using System;
-using System.IO; 
+using System.IO;
+using System.IO.Enumeration;
 class Program
 {
     static void Main(string[] args)
     {
         List<JWGoal> jwGoalsList = new List<JWGoal>();
         int jwCurrentPoints = 0;
-        string jwOptionsMessage = $"You have {jwCurrentPoints} points.\n\nMenu Options:\n  1. Create New Goal\n  2. List Goals\n  3. Save Goals\n  4. Load Goals\n  5. Record Event\n  6. Quit\nSelect a choice from the menu: ";
+        string jwOptionsMessage = $"\nMenu Options:\n  1. Create New Goal\n  2. List Goals\n  3. Save Goals\n  4. Load Goals\n  5. Record Event\n  6. Quit\nSelect a choice from the menu: ";
         string jwUserChoice = "";
+        Console.WriteLine($"You have {jwCurrentPoints} points.");
         Console.Write(jwOptionsMessage);
         jwUserChoice = Console.ReadLine();
         while(jwUserChoice != "6")
@@ -57,18 +60,20 @@ class Program
             }
             else if (jwUserChoice == "2")
             {
-                int jwListCount = 1;
-                Console.WriteLine("The goals are:");
-                foreach(JWGoal goal in jwGoalsList)
-                {
-                    Console.WriteLine($"{jwListCount}. {goal.DisplayGoal()}");
-                    jwListCount++;
-                }
+                DisplayGoals(jwGoalsList);
             }
             else if (jwUserChoice == "3")
             {
                 SaveFile(jwGoalsList, jwCurrentPoints);
             }
+            else if (jwUserChoice == "5")
+            {
+                DisplayGoals(jwGoalsList);
+                Console.WriteLine("What goal did you accomplish? ");
+                int jwGoalSelection = int.Parse(Console.ReadLine()) -1;
+                jwCurrentPoints += jwGoalsList[jwGoalSelection].RecordEvent();
+            }
+            Console.WriteLine($"You have {jwCurrentPoints} points.");
             Console.Write(jwOptionsMessage);
             jwUserChoice = Console.ReadLine();
         }
@@ -88,4 +93,31 @@ class Program
                     }
                 }
         }
+    static void LoadFile(int jwCurrentPoints)
+    {
+        Console.WriteLine("What is the filename? ");
+        string jwFilename = Console.ReadLine();
+
+        string[] jwLines = System.IO.File.ReadAllLines(jwFilename);
+        jwCurrentPoints += int.Parse(jwLines[0]);
+        foreach (string jwLine in jwLines[1..])
+        {
+            string[] jwClassSplit = jwLine.Split(":");
+            if (jwClassSplit[0] == "SimpleGoal")
+            {
+                JWSimpleGoal jwSimpleGoal = new JWSimpleGoal();
+                jwSimpleGoal.DeconstructFromFile(jwClassSplit[1]);
+            }
+        }
+    }
+    static void DisplayGoals(List<JWGoal> jwGoalsList)
+    {
+        int jwListCount = 1;
+                Console.WriteLine("The goals are:");
+                foreach(JWGoal goal in jwGoalsList)
+                {
+                    Console.WriteLine($"{jwListCount}. {goal.DisplayGoal()}");
+                    jwListCount++;
+                }
+    }
 }
