@@ -66,9 +66,13 @@ class Program
             {
                 SaveFile(jwGoalsList, jwCurrentPoints);
             }
+            else if (jwUserChoice == "4")
+            {
+                LoadFile(ref jwCurrentPoints, jwGoalsList);
+            }
             else if (jwUserChoice == "5")
             {
-                DisplayGoals(jwGoalsList);
+                DisplayGoalNames(jwGoalsList);
                 Console.WriteLine("What goal did you accomplish? ");
                 int jwGoalSelection = int.Parse(Console.ReadLine()) -1;
                 jwCurrentPoints += jwGoalsList[jwGoalSelection].RecordEvent();
@@ -93,12 +97,13 @@ class Program
                     }
                 }
         }
-    static void LoadFile(int jwCurrentPoints)
+    static void LoadFile(ref int jwCurrentPoints, List<JWGoal> jwGoalsList)
     {
         Console.WriteLine("What is the filename? ");
         string jwFilename = Console.ReadLine();
 
         string[] jwLines = System.IO.File.ReadAllLines(jwFilename);
+
         jwCurrentPoints += int.Parse(jwLines[0]);
         foreach (string jwLine in jwLines[1..])
         {
@@ -106,7 +111,20 @@ class Program
             if (jwClassSplit[0] == "SimpleGoal")
             {
                 JWSimpleGoal jwSimpleGoal = new JWSimpleGoal();
+                jwGoalsList.Add(jwSimpleGoal);
                 jwSimpleGoal.DeconstructFromFile(jwClassSplit[1]);
+            }
+            else if (jwClassSplit[0] == "EternalGoal")
+            {
+                JWEternalGoal jwEternalGoal = new JWEternalGoal();
+                jwGoalsList.Add(jwEternalGoal);
+                jwEternalGoal.DeconstructFromFile(jwClassSplit[1]);
+            }
+            else if (jwClassSplit[0] == "ChecklistGoal")
+            {
+                JWChecklistGoal jwChecklistGoal = new JWChecklistGoal();
+                jwGoalsList.Add(jwChecklistGoal);
+                jwChecklistGoal.DeconstructFromFile(jwClassSplit[1]);
             }
         }
     }
@@ -117,6 +135,16 @@ class Program
                 foreach(JWGoal goal in jwGoalsList)
                 {
                     Console.WriteLine($"{jwListCount}. {goal.DisplayGoal()}");
+                    jwListCount++;
+                }
+    }
+    static void DisplayGoalNames(List<JWGoal> jwGoalsList)
+    {
+        int jwListCount = 1;
+                Console.WriteLine("The goals are:");
+                foreach(JWGoal goal in jwGoalsList)
+                {
+                    Console.WriteLine($"{jwListCount}. {goal.DisplayName()}");
                     jwListCount++;
                 }
     }

@@ -2,7 +2,7 @@ using System;
 
 public class JWEternalGoal : JWGoal
 {
-    public JWEternalGoal(string jwName, string jwDescription, int jwPointValue) : base(jwName, jwDescription, jwPointValue)
+    public JWEternalGoal(string jwName = "Unknown", string jwDescription = "Unknown", int jwPointValue = 0) : base(jwName, jwDescription, jwPointValue)
     {
     }
     public override int RecordEvent()
@@ -16,7 +16,10 @@ public class JWEternalGoal : JWGoal
     }
     public override void DeconstructFromFile(string jwFileLine)
     {
-        //
+        string[] jwParts = jwFileLine.Split("|");
+        _jwName = jwParts[0];
+        _jwDescription = jwParts[1];
+        _jwPointValue = int.Parse(jwParts[2]);
     }
     public override string DisplayGoal()
     {

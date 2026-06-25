@@ -19,7 +19,11 @@ public class JWSimpleGoal : JWGoal
     }
     public override void DeconstructFromFile(string jwFileLine)
     {
-        //
+        string[] jwParts = jwFileLine.Split("|");
+        _jwName = jwParts[0];
+        _jwDescription = jwParts[1];
+        _jwPointValue = int.Parse(jwParts[2]);
+        _jwIsComplete = bool.Parse(jwParts[3]);
     }
     public override string DisplayGoal()
     {
