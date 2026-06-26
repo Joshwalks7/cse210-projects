@@ -1,4 +1,0 @@
-780
-ChecklistGoal:Rychen|Jones is a cool name|80|500|3|3
-SimpleGoal:walk the dog|take jimmy on a walk|40|True
-EternalGoal:Attend church|go to church at 10am|65

@@ -1,0 +1,4 @@
+180
+SimpleGoal:Mow the lawn|Help Dad mow the grass on Saturday|80|True
+EternalGoal:Read the Scriptures|Spend 10 min day reading the BOM|50
+ChecklistGoal:Attend the temple|Perform an ordinance in the temple|50|500|10|2
