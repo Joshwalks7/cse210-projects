@@ -22,4 +22,19 @@ public abstract class JWLegoItem
     {
         return _jwTheme;
     }
+    public void DecreaseQuantity(int jwDeceaseBy)
+    {
+        _jwQuantity = _jwQuantity - jwDeceaseBy;
+    }
+    public bool CheckQuantity()
+    {
+        if (_jwQuantity == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
