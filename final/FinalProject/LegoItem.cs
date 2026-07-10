@@ -28,7 +28,7 @@ public abstract class JWLegoItem
     }
     public bool CheckQuantity()
     {
-        if (_jwQuantity == 0)
+        if (_jwQuantity <= 0)
         {
             return true;
         }

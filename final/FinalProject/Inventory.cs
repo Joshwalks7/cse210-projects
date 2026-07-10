@@ -11,26 +11,30 @@ public class JWInventory
     }
     public void DisplayCollection()
     {
+        int jwListNum = 1;
         foreach(JWLegoItem jwItem in _jwInventoryList)
         {
-            Console.WriteLine(jwItem.DisplayItem());
+            Console.WriteLine($"{jwListNum}. {jwItem.DisplayItem()}");
+            jwListNum++;
         }
     }
     public void AddItem(JWLegoItem jwLegoItem)
     {
         _jwInventoryList.Add(jwLegoItem);
     }
-    public void RemoveItem(int jwItemIndex)
+    public void RemoveItem(int jwItemIndex, int jwRemoveQuantity)
     {
-        _jwInventoryList[jwItemIndex].DecreaseQuantity(1);
+        _jwInventoryList[jwItemIndex].DecreaseQuantity(jwRemoveQuantity);
         if (_jwInventoryList[jwItemIndex].CheckQuantity())
         {
             _jwInventoryList.RemoveAt(jwItemIndex);
         }
     }
-    public void RemoveFromInventory(int jwItemIndex)
+    public JWLegoItem RemoveFromInventory(int jwItemIndex)
     {
+        JWLegoItem jwItemToMove = _jwInventoryList[jwItemIndex];
         _jwInventoryList.RemoveAt(jwItemIndex);
+        return jwItemToMove;
     }
     public float EstimateTotal()
     {
