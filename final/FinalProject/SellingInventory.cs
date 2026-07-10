@@ -3,7 +3,7 @@ using System;
 public class JWSellingInventory : JWInventory
 {
     private float _jwRevenue;
-    private List<JWTransaction> _jwTransactions;
+    private List<JWTransaction> _jwTransactions = new List<JWTransaction>();
     public JWSellingInventory(string jwName) : base(jwName)
     {
     }
@@ -21,9 +21,11 @@ public class JWSellingInventory : JWInventory
     }
     public void ListTransactionSummaries()
     {
+        int jwListNum = 1;
         foreach(JWTransaction jWTransaction in _jwTransactions)
         {
-            Console.WriteLine(jWTransaction.ReturnSummary());
+            Console.WriteLine($"  {jwListNum}. {jWTransaction.ReturnSummary()}");
+            jwListNum++;
         }
     }
     public void ViewTransactionDetails(int jwIndex)

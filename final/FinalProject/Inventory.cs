@@ -4,7 +4,7 @@ using System;
 public class JWInventory
 {
     protected string _jwName;
-    protected List<JWLegoItem> _jwInventoryList;
+    protected List<JWLegoItem> _jwInventoryList = new List<JWLegoItem>();
     public JWInventory(string jwName)
     {
         _jwName = jwName;
@@ -29,6 +29,10 @@ public class JWInventory
         {
             _jwInventoryList.RemoveAt(jwItemIndex);
         }
+    }
+    public JWLegoItem ReturnItemFromInventory(int jwItemIndex)
+    {
+        return _jwInventoryList[jwItemIndex];
     }
     public JWLegoItem RemoveFromInventory(int jwItemIndex)
     {

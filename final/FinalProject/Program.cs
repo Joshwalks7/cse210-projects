@@ -11,82 +11,206 @@ class Program
         Console.Write(jwOptionsMessage);
         string jwUserChoice = Console.ReadLine();
         while(jwUserChoice != "5")
+        {
             if (jwUserChoice == "1")
             {
-                Console.Write("Personal Inventory Options:\n  1. Display Sets in Collection\n  2. Add LEGO item to Inventory\n 3. Remove Item\n  4. Move Item to Selling Inventory\n  5. View Most Valuable Set\n  6. Search Sets by Theme\n  7. Estimate Collection Value\n  8. Return to Home\nWhat would you like to do? ");
+                string jwPersonalOptionsMessage = "\nPersonal Inventory Options:\n  1. Display Sets in Collection\n  2. Add LEGO item to Inventory\n  3. Remove Item\n  4. Move Item to Selling Inventory\n  5. View Most Valuable Set\n  6. Search Sets by Theme\n  7. Estimate Collection Value\n  8. Return to Home\nWhat would you like to do? ";
+                Console.Write(jwPersonalOptionsMessage);
                 string jwPersonalChoice = Console.ReadLine();
-                if (jwPersonalChoice == "1")
+                while (jwPersonalChoice != "8")
                 {
-                jwPersonalInventory.DisplayCollection();
-                }
-                else if (jwPersonalChoice == "2")
-                {
-                    Console.Write("Which type of LEGO Item would you like to add?\n  1. Minifigure\n  2. Complete Set\n  3. Incomplete Set\n>>");
-                    string jwItemChoice = Console.ReadLine();
-                    if (jwItemChoice == "1")
+                    if (jwPersonalChoice == "1")
                     {
-                        string jwName = GetUserInput("What is the name of the item? ");
-                        float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of the "));
-                        string jwTheme = GetUserInput("What is the theme of the minifigure? ");
-                        int jwQuantity = int.Parse(GetUserInput("How many of this minifigure are you recording? "));
-                        int jwYear = int.Parse(GetUserInput("What year was the minifigure first introduced/sold? "));
-                        string jwAccessory = GetUserInput("Which of the minifigure's accessories do you have? (\"none\" if nothing) ");
-                        JWMinifigure jwMinifigure = new JWMinifigure(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwYear, jwAccessory);
-                        jwPersonalInventory.AddItem(jwMinifigure);
+                        jwPersonalInventory.DisplayCollection();
                     }
-                    else if (jwItemChoice == "2")
+                    else if (jwPersonalChoice == "2")
                     {
-                        string jwName = GetUserInput("What is the name of the set? ");
-                        float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of the set? "));
-                        string jwTheme = GetUserInput("What is the theme of the set? ");
-                        int jwQuantity = int.Parse(GetUserInput("How many of this set are you recording? "));
-                        string jwCondition = GetUserInput("What is the set's condition? (sealed, used-good, used-worn, etc) ");
-                        int jwSetNumber = int.Parse(GetUserInput("What is the set's number? "));
-                        JWFullSet jwFullSet = new JWFullSet(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwCondition, jwSetNumber);
-                        jwPersonalInventory.AddItem(jwFullSet);
+                        Console.Write("Which type of LEGO Item would you like to add?\n  1. Minifigure\n  2. Complete Set\n  3. Incomplete Set\n>> ");
+                        string jwItemChoice = Console.ReadLine();
+                        if (jwItemChoice == "1")
+                        {
+                            string jwName = GetUserInput("What is the name of the item? ");
+                            float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of the minifigure? "));
+                            string jwTheme = GetUserInput("What is the theme of the minifigure? ");
+                            int jwQuantity = int.Parse(GetUserInput("How many of this minifigure are you recording? "));
+                            int jwYear = int.Parse(GetUserInput("What year was the minifigure first introduced/sold? "));
+                            string jwAccessory = GetUserInput("Which of the minifigure's accessories do you have? (\"none\" if nothing) ");
+                            JWMinifigure jwMinifigure = new JWMinifigure(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwYear, jwAccessory);
+                            jwPersonalInventory.AddItem(jwMinifigure);
+                        }
+                        else if (jwItemChoice == "2")
+                        {
+                            string jwName = GetUserInput("What is the name of the set? ");
+                            float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of the set? "));
+                            string jwTheme = GetUserInput("What is the theme of the set? ");
+                            int jwQuantity = int.Parse(GetUserInput("How many of this set are you recording? "));
+                            string jwCondition = GetUserInput("What is the set's condition? (sealed, used-good, used-worn, etc) ");
+                            int jwSetNumber = int.Parse(GetUserInput("What is the set's number? "));
+                            JWFullSet jwFullSet = new JWFullSet(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwCondition, jwSetNumber);
+                            jwPersonalInventory.AddItem(jwFullSet);
+                        }
+                        else if (jwItemChoice == "3")
+                        {
+                            string jwName = GetUserInput("What is the name of the set? ");
+                            float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of what you have? "));
+                            string jwTheme = GetUserInput("What is the theme of the set? ");
+                            int jwQuantity = int.Parse(GetUserInput("How many of this exact item are you recording? "));
+                            string jwPercentComplete = GetUserInput("What percent is the set complete? ");
+                            int jwSetNumber = int.Parse(GetUserInput("What is the set's number? "));
+                            string jwMinifigures = GetUserInput("List the figures you have in combination with the set (or \"none\"): ");
+                            string jwDescription = GetUserInput("What is your general description of this item? ");
+                            JWIncompleteSet jwIncompleteSet = new JWIncompleteSet(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwPercentComplete, jwSetNumber, jwMinifigures, jwDescription);
+                            jwPersonalInventory.AddItem(jwIncompleteSet);
+                        }
                     }
-                    else if (jwItemChoice == "3")
+                    else if (jwPersonalChoice == "3")
                     {
-                        string jwName = GetUserInput("What is the name of the set? ");
-                        float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of what you have? "));
-                        string jwTheme = GetUserInput("What is the theme of the set? ");
-                        int jwQuantity = int.Parse(GetUserInput("How many of this exact item are you recording? "));
-                        string jwPercentComplete = GetUserInput("What percent is the set complete? ");
-                        int jwSetNumber = int.Parse(GetUserInput("What is the set's number? "));
-                        string jwMinifigures = GetUserInput("List the figures you have in combination with the set (or \"none\"): ");
-                        string jwDescription = GetUserInput("What is your general description of this item? ");
-                        JWIncompleteSet jwIncompleteSet = new JWIncompleteSet(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwPercentComplete, jwSetNumber, jwMinifigures, jwDescription);
-                        jwPersonalInventory.AddItem(jwIncompleteSet);
+                        jwPersonalInventory.DisplayCollection();
+                        int jwRemoveIndex = int.Parse(GetUserInput("What item would you like to remove? ")) -1;
+                        int jwQuantity = int.Parse(GetUserInput("How many would you like to remove? "));
+                        jwPersonalInventory.RemoveItem(jwRemoveIndex, jwQuantity);
                     }
-                }
-                else if (jwPersonalChoice == "3")
-                {
-                    jwPersonalInventory.DisplayCollection();
-                    int jwRemoveIndex = int.Parse(GetUserInput("What item would you like to remove? ")) -1;
-                    int jwQuantity = int.Parse(GetUserInput("How many would you like to remove? "));
-                    jwPersonalInventory.RemoveItem(jwRemoveIndex, jwQuantity);
-                }
-                else if (jwPersonalChoice == "4")
-                {
-                    jwPersonalInventory.DisplayCollection();
-                    int jwRemoveIndex = int.Parse(GetUserInput("Which item would you like to move to the selling collection? ")) -1;
-                    JWLegoItem jwItemtoMove = jwPersonalInventory.RemoveFromInventory(jwRemoveIndex);
-                    jwSellingInventory.AddItem(jwItemtoMove);
-                }
-                else if (jwPersonalChoice == "5")
-                {
-                    Console.WriteLine(jwPersonalInventory.DisplayMostExpensive());
-                }
-                else if (jwPersonalChoice == "6")
-                {
-                    string jwTheme = GetUserInput("What theme are you searching for? ");
-                    jwPersonalInventory.DisplayTheme(jwTheme);
-                }
-                else if (jwPersonalChoice == "7")
-                {
-                    Console.WriteLine($"Your collection is worth about ${jwPersonalInventory.EstimateTotal}!");
+                    else if (jwPersonalChoice == "4")
+                    {
+                        jwPersonalInventory.DisplayCollection();
+                        int jwRemoveIndex = int.Parse(GetUserInput("Which item would you like to move to the selling collection? ")) -1;
+                        JWLegoItem jwItemtoMove = jwPersonalInventory.RemoveFromInventory(jwRemoveIndex);
+                        jwSellingInventory.AddItem(jwItemtoMove);
+                    }
+                    else if (jwPersonalChoice == "5")
+                    {
+                        Console.WriteLine(jwPersonalInventory.DisplayMostExpensive());
+                    }
+                    else if (jwPersonalChoice == "6")
+                    {
+                        string jwTheme = GetUserInput("What theme are you searching for? ");
+                        jwPersonalInventory.DisplayTheme(jwTheme);
+                    }
+                    else if (jwPersonalChoice == "7")
+                    {
+                        Console.WriteLine($"Your collection is worth about ${jwPersonalInventory.EstimateTotal()}!");
+                    }
+                    Console.Write(jwPersonalOptionsMessage);
+                    jwPersonalChoice = Console.ReadLine();
                 }
             }
+            else if (jwUserChoice == "2")
+            {
+                string jwSellingOptionsMessage = "\nSelling Inventory Options:\n  1. Display Sets in Collection\n  2. Add LEGO item to Inventory\n  3. Remove Item\n  4. Move Item to Selling Inventory\n  5. View Most Valuable Set\n  6. Search Sets by Theme\n  7. Estimate Collection Value\n  8. Record Transaction\n  9. View Transactions\n  10. Return to Home\nWhat would you like to do? ";
+                Console.Write(jwSellingOptionsMessage);
+                string jwSellingChoice = Console.ReadLine();
+                while (jwSellingChoice != "10")
+                {
+                    if (jwSellingChoice == "1")
+                    {
+                        jwSellingInventory.DisplayCollection();
+                    }
+                    else if (jwSellingChoice == "2")
+                    {
+                       Console.Write("Which type of LEGO Item would you like to add?\n  1. Minifigure\n  2. Complete Set\n  3. Incomplete Set\n>> ");
+                        string jwItemChoice = Console.ReadLine();
+                        if (jwItemChoice == "1")
+                        {
+                            string jwName = GetUserInput("What is the name of the item? ");
+                            float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of the minifigure? "));
+                            string jwTheme = GetUserInput("What is the theme of the minifigure? ");
+                            int jwQuantity = int.Parse(GetUserInput("How many of this minifigure are you recording? "));
+                            int jwYear = int.Parse(GetUserInput("What year was the minifigure first introduced/sold? "));
+                            string jwAccessory = GetUserInput("Which of the minifigure's accessories do you have? (\"none\" if nothing) ");
+                            JWMinifigure jwMinifigure = new JWMinifigure(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwYear, jwAccessory);
+                            jwSellingInventory.AddItem(jwMinifigure);
+                        }
+                        else if (jwItemChoice == "2")
+                        {
+                            string jwName = GetUserInput("What is the name of the set? ");
+                            float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of the set? "));
+                            string jwTheme = GetUserInput("What is the theme of the set? ");
+                            int jwQuantity = int.Parse(GetUserInput("How many of this set are you recording? "));
+                            string jwCondition = GetUserInput("What is the set's condition? (sealed, used-good, used-worn, etc) ");
+                            int jwSetNumber = int.Parse(GetUserInput("What is the set's number? "));
+                            JWFullSet jwFullSet = new JWFullSet(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwCondition, jwSetNumber);
+                            jwSellingInventory.AddItem(jwFullSet);
+                        }
+                        else if (jwItemChoice == "3")
+                        {
+                            string jwName = GetUserInput("What is the name of the set? ");
+                            float jwEstimatedValue = float.Parse(GetUserInput("What is the estimated value of what you have? "));
+                            string jwTheme = GetUserInput("What is the theme of the set? ");
+                            int jwQuantity = int.Parse(GetUserInput("How many of this exact item are you recording? "));
+                            string jwPercentComplete = GetUserInput("What percent is the set complete? ");
+                            int jwSetNumber = int.Parse(GetUserInput("What is the set's number? "));
+                            string jwMinifigures = GetUserInput("List the figures you have in combination with the set (or \"none\"): ");
+                            string jwDescription = GetUserInput("What is your general description of this item? ");
+                            JWIncompleteSet jwIncompleteSet = new JWIncompleteSet(jwName, jwEstimatedValue, jwTheme, jwQuantity, jwPercentComplete, jwSetNumber, jwMinifigures, jwDescription);
+                            jwSellingInventory.AddItem(jwIncompleteSet);
+                        }
+                    }
+                    else if (jwSellingChoice == "3")
+                    {
+                        jwSellingInventory.DisplayCollection();
+                        int jwRemoveIndex = int.Parse(GetUserInput("What item would you like to remove? ")) -1;
+                        int jwQuantity = int.Parse(GetUserInput("How many would you like to remove? "));
+                        jwSellingInventory.RemoveItem(jwRemoveIndex, jwQuantity);
+                    }
+                    else if (jwSellingChoice == "4")
+                    {
+                        jwSellingInventory.DisplayCollection();
+                        int jwRemoveIndex = int.Parse(GetUserInput("Which item would you like to move to the selling collection? ")) -1;
+                        JWLegoItem jwItemtoMove = jwSellingInventory.RemoveFromInventory(jwRemoveIndex);
+                        jwPersonalInventory.AddItem(jwItemtoMove);
+                    }
+                    else if (jwSellingChoice == "5")
+                    {
+                        Console.WriteLine(jwSellingInventory.DisplayMostExpensive());
+                    }
+                    else if (jwSellingChoice == "6")
+                    {
+                        string jwTheme = GetUserInput("What theme are you searching for? ");
+                        jwSellingInventory.DisplayTheme(jwTheme);
+                    }
+                    else if (jwSellingChoice == "7")
+                    {
+                        Console.WriteLine($"Your collection is worth about ${jwSellingInventory.EstimateTotal()}!");
+                    }
+                    else if (jwSellingChoice == "8")
+                    {
+                        string jwBuyerName = GetUserInput("What is the buyer's name? ");
+                        float jwSellingPrice = float.Parse(GetUserInput("What was the selling price? "));
+                        string jwAddress = GetUserInput("What is the address? ");
+                        string jwEmail = GetUserInput("What is the email of contact? ");
+                        List<JWLegoItem> jwSetsSold = [];
+                        jwSellingInventory.DisplayCollection();
+                        int jwItemChoice = int.Parse(GetUserInput("Which item would you like to add? ")) -1;
+                        jwSetsSold.Add(jwSellingInventory.ReturnItemFromInventory(jwItemChoice));
+                        jwSellingInventory.RemoveItem(jwItemChoice, 1);
+                        string jwAddMoreItems = GetUserInput("Would you like to add more items? ");
+                        while (jwAddMoreItems.ToLower() != "no")
+                        {
+                            jwSellingInventory.DisplayCollection();
+                            jwItemChoice = int.Parse(GetUserInput("Which item would you like to add? ")) -1;
+                            jwSetsSold.Add(jwSellingInventory.ReturnItemFromInventory(jwItemChoice));
+                            jwSellingInventory.RemoveItem(jwItemChoice, 1);
+                            jwAddMoreItems = GetUserInput("Would you like to add more items? ");
+                        }
+                        string jwTransactionDate = GetUserInput("Date of transaction: ");
+                        JWTransaction jwTransaction = new JWTransaction(jwBuyerName, jwSellingPrice, jwAddress, jwEmail, jwSetsSold, jwTransactionDate);
+                        jwSellingInventory.RecordTransaction(jwTransaction);
+                        Console.WriteLine("Transaction recorded!");
+                    }
+                    else if (jwSellingChoice == "9")
+                    {
+                        Console.WriteLine($"Your current revenue from sales is: {jwSellingInventory.DisplayRevenue()}");
+                        jwSellingInventory.ListTransactionSummaries();
+                        int jwTransactionChoice = int.Parse(GetUserInput("What transaction would you like to view? ")) -1;
+                        jwSellingInventory.ViewTransactionDetails(jwTransactionChoice);
+                    }
+                    Console.Write(jwSellingOptionsMessage);
+                    jwSellingChoice = Console.ReadLine();
+                }
+            }
+            Console.Write(jwOptionsMessage);
+            jwUserChoice = Console.ReadLine();
+        }    
     }
     static string GetUserInput(string jwDisplay)
     {
