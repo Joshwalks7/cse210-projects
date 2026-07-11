@@ -73,12 +73,23 @@ public class JWInventory
             }
         }
     }
-    public virtual void DeconstructFromFile()
+    public virtual void DeconstructFromFile(string jwLine)
     {
-        
+        string[] jwItemSplit = jwLine.Split("[]");
+        if (jwItemSplit[0] == "Minifigure")
+        {
+            string[] jwClassSplit = jwItemSplit[1].Split("|");
+            JWMinifigure jwMinifigure = new JWMinifigure(jwClassSplit[0], float.Parse(jwClassSplit[1]), jwClassSplit[2], int.Parse(jwClassSplit[3]), int.Parse(jwClassSplit[4]), jwClassSplit[5]);
+            _jwInventoryList.Add(jwMinifigure);
+        }
     }
     public virtual string StringForFile()
     {
-        return "";
+        string jwReturnLine = "";
+        foreach (JWLegoItem jwItem in _jwInventoryList)
+        {
+            jwReturnLine += $"\nPersonal#{jwItem.StringForFile()}";
+        }
+        return jwReturnLine;
     }
 }

@@ -14,6 +14,7 @@ public abstract class JWLegoItem
         _jwQuantity = jwQuantity;
     }
     public abstract string DisplayItem();
+    public abstract string StringForFile();
     public float DisplayEstimatedValue()
     {
         return _jwEstimatedValue;

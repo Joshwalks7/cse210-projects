@@ -33,4 +33,14 @@ public class JWTransaction
     {
         return _jwSellingPrice;
     }
+    public string StringForFile()
+    {
+        string jwReturnTransaction = $"\nTransaction#{_jwBuyerName}|{_jwEmail}|{_jwAddress}|{_jwTransactionDate}|{_jwSellingPrice}";
+        jwReturnTransaction += "{}";
+        foreach(JWLegoItem jwItem in _jwSetsSold)
+        {
+            jwReturnTransaction += $"^{jwItem.StringForFile()}";
+        }
+        return jwReturnTransaction;
+    }
 }

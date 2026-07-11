@@ -17,4 +17,8 @@ public class JWIncompleteSet : JWLegoItem
     {
         return $"{_jwName} Set: {_jwSetNumber} ~ {_jwPercentComplete}% Complete Theme:{_jwTheme} (~${_jwEstimatedValue} -- Qty: {_jwQuantity}) Minifigures: {_jwMinifigures} Description: {_jwDescription}";
     }
+    public override string StringForFile()
+    {
+        return $"IncompleteSet[]{_jwName}|{_jwEstimatedValue}|{_jwTheme}|{_jwQuantity}|{_jwPercentComplete}|{_jwSetNumber}|{_jwMinifigures}|{_jwDescription}";
+    }
 }

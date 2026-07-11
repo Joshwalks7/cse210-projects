@@ -13,4 +13,8 @@ public class JWMinifigure : JWLegoItem
     {
             return $"{_jwName} Accessory: {_jwAccessory} Theme:{_jwTheme} {_jwYear} (~${_jwEstimatedValue} -- Qty: {_jwQuantity})";
     }
+    public override string StringForFile()
+    {
+        return $"Minifigure[]{_jwName}|{_jwEstimatedValue}|{_jwTheme}|{_jwQuantity}|{_jwYear}|{_jwAccessory}";
+    }
 }

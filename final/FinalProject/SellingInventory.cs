@@ -11,13 +11,35 @@ public class JWSellingInventory : JWInventory
     {
         return _jwRevenue;
     }
-    public override void DeconstructFromFile()
+    public void SetRevenue(float jwRevenue)
+    {
+        _jwRevenue = jwRevenue;
+    }
+    public override void DeconstructFromFile(string jwLine)
     {
         //
     }
+    public void DeconstructTransaction(string jwLine)
+    {
+        
+    }
     public override string StringForFile()
     {
-        return "";
+        string jwReturnLine = "";
+        foreach (JWLegoItem jwItem in _jwInventoryList)
+        {
+            jwReturnLine += $"\nSelling#{jwItem.StringForFile()}";
+        }
+        return jwReturnLine;
+    }
+    public string StringTransaction()
+    {
+        string jwReturnTransaction = "";
+        foreach (JWTransaction jwTransaction in _jwTransactions)
+        {
+            jwReturnTransaction += jwTransaction.StringForFile();
+        }
+        return jwReturnTransaction;
     }
     public void ListTransactionSummaries()
     {

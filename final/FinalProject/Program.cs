@@ -208,6 +208,14 @@ class Program
                     jwSellingChoice = Console.ReadLine();
                 }
             }
+            else if (jwUserChoice == "3")
+            {
+                SaveFile(jwPersonalInventory, jwSellingInventory);
+            }
+            else if (jwUserChoice == "4")
+            {
+                
+            }
             Console.Write(jwOptionsMessage);
             jwUserChoice = Console.ReadLine();
         }    
@@ -216,5 +224,41 @@ class Program
     {
         Console.Write(jwDisplay);
         return Console.ReadLine();
+    }
+    static void SaveFile(JWInventory jwPersonalInventory, JWSellingInventory jwSellingInventory)
+    {
+        string jwFilename = GetUserInput("What is the filename? ");
+        using (StreamWriter jwOutputFile = new StreamWriter(jwFilename))
+            {
+                jwOutputFile.Write(jwSellingInventory.DisplayRevenue());
+                jwOutputFile.Write(jwPersonalInventory.StringForFile());
+                jwOutputFile.Write(jwSellingInventory.StringForFile());
+                jwOutputFile.Write(jwSellingInventory.StringTransaction());
+            }
+    }
+    static void LoadFile(JWInventory jwPersonalInventory, JWSellingInventory jwSellingInventory)
+    {
+        Console.Write("What is the filename? ");
+        string jwFilename = Console.ReadLine();
+
+        string[] jwLines = System.IO.File.ReadAllLines(jwFilename);
+        // grab the first line and add it to the current points
+        jwSellingInventory.SetRevenue(float.Parse(jwLines[0]));
+        foreach (string jwLine in jwLines[1..])
+        {
+            string[] jwClassSplit = jwLine.Split("#");
+            if (jwClassSplit[0] == "Personal")
+            {
+                jwPersonalInventory.DeconstructFromFile(jwClassSplit[1]);
+            }
+            else if (jwClassSplit[0] == "Selling")
+            {
+                jwSellingInventory.DeconstructFromFile(jwClassSplit[1]);
+            }
+            else if (jwClassSplit[0] == "Transaction")
+            {
+                jwSellingInventory.DeconstructTransaction(jwClassSplit[1]);
+            }
+        }
     }
 }
