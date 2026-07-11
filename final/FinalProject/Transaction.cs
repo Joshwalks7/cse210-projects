@@ -6,7 +6,7 @@ public class JWTransaction
     private float _jwSellingPrice;
     private string _jwAddress;
     private string _jwEmail;
-    private List<JWLegoItem> _jwSetsSold;
+    private List<JWLegoItem> _jwSetsSold = new List<JWLegoItem>();
     private string _jwTransactionDate;
     public JWTransaction(string jwBuyerName, float jwSellingPrice, string jwAddress, string jwEmail, List<JWLegoItem> jwSetsSold, string jwTransactionDate)
     {
@@ -23,7 +23,7 @@ public class JWTransaction
     }
     public void DisplayTransaction()
     {
-        Console.WriteLine($"{_jwBuyerName}, {_jwEmail}, {_jwAddress}, {_jwTransactionDate}, ${_jwSellingPrice}");
+        Console.WriteLine($"Buyer: {_jwBuyerName}\nContact Email:{_jwEmail}\nAddress: {_jwAddress}\nDate: {_jwTransactionDate}\nSelling Price: ${_jwSellingPrice}");
         foreach(JWLegoItem jwItem in _jwSetsSold)
         {
             Console.WriteLine(jwItem.DisplayItem());
@@ -39,7 +39,14 @@ public class JWTransaction
         jwReturnTransaction += "{}";
         foreach(JWLegoItem jwItem in _jwSetsSold)
         {
-            jwReturnTransaction += $"^{jwItem.StringForFile()}";
+            if (jwItem == _jwSetsSold[^1])
+            {
+                jwReturnTransaction += $"{jwItem.StringForFile()}";
+            }
+            else
+            {
+                jwReturnTransaction += $"{jwItem.StringForFile()}^";
+            }
         }
         return jwReturnTransaction;
     }

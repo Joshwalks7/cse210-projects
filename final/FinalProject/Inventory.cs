@@ -73,7 +73,7 @@ public class JWInventory
             }
         }
     }
-    public virtual void DeconstructFromFile(string jwLine)
+    public void DeconstructFromFile(string jwLine)
     {
         string[] jwItemSplit = jwLine.Split("[]");
         if (jwItemSplit[0] == "Minifigure")
@@ -81,6 +81,18 @@ public class JWInventory
             string[] jwClassSplit = jwItemSplit[1].Split("|");
             JWMinifigure jwMinifigure = new JWMinifigure(jwClassSplit[0], float.Parse(jwClassSplit[1]), jwClassSplit[2], int.Parse(jwClassSplit[3]), int.Parse(jwClassSplit[4]), jwClassSplit[5]);
             _jwInventoryList.Add(jwMinifigure);
+        }
+        else if (jwItemSplit[0] == "FullSet")
+        {
+            string[] jwClassSplit = jwItemSplit[1].Split("|");
+            JWFullSet jwFullSet = new JWFullSet(jwClassSplit[0], float.Parse(jwClassSplit[1]), jwClassSplit[2], int.Parse(jwClassSplit[3]), jwClassSplit[4], int.Parse(jwClassSplit[5]));
+            _jwInventoryList.Add(jwFullSet);
+        }
+        else if (jwItemSplit[0] == "IncompleteSet")
+        {
+            string[] jwClassSplit = jwItemSplit[1].Split("|");
+            JWIncompleteSet jwIncompleteSet = new JWIncompleteSet(jwClassSplit[0], float.Parse(jwClassSplit[1]), jwClassSplit[2], int.Parse(jwClassSplit[3]), jwClassSplit[4], int.Parse(jwClassSplit[5]), jwClassSplit[6], jwClassSplit[7]);
+            _jwInventoryList.Add(jwIncompleteSet);
         }
     }
     public virtual string StringForFile()

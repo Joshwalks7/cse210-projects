@@ -199,7 +199,7 @@ class Program
                     }
                     else if (jwSellingChoice == "9")
                     {
-                        Console.WriteLine($"Your current revenue from sales is: {jwSellingInventory.DisplayRevenue()}");
+                        Console.WriteLine($"Your current revenue from sales is: ${jwSellingInventory.DisplayRevenue()}");
                         jwSellingInventory.ListTransactionSummaries();
                         int jwTransactionChoice = int.Parse(GetUserInput("What transaction would you like to view? ")) -1;
                         jwSellingInventory.ViewTransactionDetails(jwTransactionChoice);
@@ -214,7 +214,7 @@ class Program
             }
             else if (jwUserChoice == "4")
             {
-                
+                LoadFile(jwPersonalInventory, jwSellingInventory);
             }
             Console.Write(jwOptionsMessage);
             jwUserChoice = Console.ReadLine();

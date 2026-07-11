@@ -15,13 +15,44 @@ public class JWSellingInventory : JWInventory
     {
         _jwRevenue = jwRevenue;
     }
-    public override void DeconstructFromFile(string jwLine)
-    {
-        //
-    }
     public void DeconstructTransaction(string jwLine)
     {
-        
+        string[] jwTransactionSplit = jwLine.Split("{}");
+        // split normal transaction details/parameters
+        string[] jwTransactionDetailsSplit = jwTransactionSplit[0].Split("|");
+        string jwBuyername = jwTransactionDetailsSplit[0];
+        string jwEmail = jwTransactionDetailsSplit[1];
+        string jwAddress = jwTransactionDetailsSplit[2];
+        string jwTransactionDate = jwTransactionDetailsSplit[3];
+        float jwSellingPrice = float.Parse(jwTransactionDetailsSplit[4]);
+
+        // split/create parts for sets sold list
+        List<JWLegoItem> jwSetsSold = new List<JWLegoItem>();
+        string[] jwSetsSplit = jwTransactionSplit[1].Split("^");
+        foreach(string jwLineItem in jwSetsSplit)
+        {
+            string[] jwItemSplit = jwLineItem.Split("[]");
+            if (jwItemSplit[0] == "Minifigure")
+            {
+                string[] jwClassSplit = jwItemSplit[1].Split("|");
+                JWMinifigure jwMinifigure = new JWMinifigure(jwClassSplit[0], float.Parse(jwClassSplit[1]), jwClassSplit[2], int.Parse(jwClassSplit[3]), int.Parse(jwClassSplit[4]), jwClassSplit[5]);
+                jwSetsSold.Add(jwMinifigure);
+            }
+            else if (jwItemSplit[0] == "FullSet")
+            {
+                string[] jwClassSplit = jwItemSplit[1].Split("|");
+                JWFullSet jwFullSet = new JWFullSet(jwClassSplit[0], float.Parse(jwClassSplit[1]), jwClassSplit[2], int.Parse(jwClassSplit[3]), jwClassSplit[4], int.Parse(jwClassSplit[5]));
+                jwSetsSold.Add(jwFullSet);
+            }
+            else if (jwItemSplit[0] == "IncompleteSet")
+            {
+                string[] jwClassSplit = jwItemSplit[1].Split("|");
+                JWIncompleteSet jwIncompleteSet = new JWIncompleteSet(jwClassSplit[0], float.Parse(jwClassSplit[1]), jwClassSplit[2], int.Parse(jwClassSplit[3]), jwClassSplit[4], int.Parse(jwClassSplit[5]), jwClassSplit[6], jwClassSplit[7]);
+                jwSetsSold.Add(jwIncompleteSet);
+            }
+        }
+        JWTransaction jwTransaction = new JWTransaction(jwBuyername, jwSellingPrice, jwAddress, jwEmail, jwSetsSold, jwTransactionDate);
+        _jwTransactions.Add(jwTransaction);
     }
     public override string StringForFile()
     {
