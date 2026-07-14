@@ -1,5 +1,11 @@
-200
-Personal#Minifigure[]322nd Clone|14|Star Wars|4|2017|Blaster
-Selling#Minifigure[]501st clone|9|Star Wars|1|2020|none
+447.5
+Personal#Minifigure[]322nd Clone|14|Star Wars|2|2017|Blaster
+Personal#IncompleteSet[]Barc Speeder|30|Star Wars|3|75|13114|Arf Trooper|Just the bike and trooper
+Personal#Minifigure[]Obi-Wan Kenobi|10|Star Wars|1|2004|Cape
+Personal#Minifigure[]Bart Simpson|20|Simpsons|1|2010|none
+Personal#FullSet[]Rose Bouquet|50|Botanical|2|sealed|38849
 Selling#FullSet[]Arc 170 Starfighter|75|Star Wars|1|sealed|23456
+Selling#Minifigure[]501st clone|9|Star Wars|1|2020|none
+Selling#FullSet[]501st Battle Pack|22|Star Wars|7|sealed|75280
 Transaction#Seth|sethtest@gmail.com|233 N First W|7/10/26|200{}Minifigure[]501st clone|9|Star Wars|1|2020|none^FullSet[]Takodana|100|Star Wars|0|sealed|12345^IncompleteSet[]V19 Torrent|60|Star Wars|0|99|34567|none|Just missing figures
+Transaction#Steven|steven@lego.com|354 S First W Rexburg Idaho|7/14/26|247.5{}FullSet[]501st Battle Pack|22|Star Wars|7|sealed|75280^FullSet[]501st Battle Pack|22|Star Wars|7|sealed|75280^FullSet[]501st Battle Pack|22|Star Wars|7|sealed|75280^FullSet[]Millenium Falcon|120|Star Wars|0|bad|84568
