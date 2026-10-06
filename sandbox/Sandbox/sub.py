@@ -11,4 +11,4 @@ class Solution:
     return num
 
 solution = Solution()
-print(solution.countSubstring("banana", "a"))  # Should output 2
+print(solution.countSubstring("banana", "ana"))  # Should output 2
